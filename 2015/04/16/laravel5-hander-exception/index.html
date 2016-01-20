@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> laravel5新特性 - 异常处理 · xbhub</title><meta name="description" content="一般在web开发中，我们很少会接触到除了404页面其它的http通信错误页面，即使是做404页面，我们也只是单纯的修改框架自带了404模板，很少能够做到完全的控制。但Laravel5改变了这种现状，那么，我们去看看如何使用Laravel5自定义错误页面的。
+Laravel5是如何处理异常的Laravel5将所有的自定义错误和异常处理都移到了App/Exceptions/Hander.php。早期Laravel的报错页面会显示’Whoops…’，然后显示出错误信息，laravel后期还专门弄了个花哨的错误异常页面，可能是觉得异常页面多数在项目上线之后会被关闭或者自定义错误页面，所以就回到了最初的美好—‘Whoops…’.
+在hander里面调用的方法如下：
+
+&lt;/div"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="http://weibo.com/jorycn" target="_blank" class="nav-list-link">微博</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li><li class="nav-list-item"><a href="https://github.com/jorycn" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">laravel5新特性 - 异常处理</h1><div class="post-meta"><div class="post-time">2015年4月17日</div></div><div class="post-content"><p>一般在web开发中，我们很少会接触到除了404页面其它的http通信错误页面，即使是做404页面，我们也只是单纯的修改框架自带了404模板，很少能够做到完全的控制。但Laravel5改变了这种现状，那么，我们去看看如何使用Laravel5自定义错误页面的。</p>
+<h2 id="Laravel5_u662F_u5982_u4F55_u5904_u7406_u5F02_u5E38_u7684"><a href="#Laravel5_u662F_u5982_u4F55_u5904_u7406_u5F02_u5E38_u7684" class="headerlink" title="Laravel5是如何处理异常的"></a>Laravel5是如何处理异常的</h2><p>Laravel5将所有的自定义错误和异常处理都移到了App/Exceptions/Hander.php。早期Laravel的报错页面会显示’Whoops…’，然后显示出错误信息，laravel后期还专门弄了个花哨的错误异常页面，可能是觉得异常页面多数在项目上线之后会被关闭或者自定义错误页面，所以就回到了最初的美好—‘Whoops…’.</p>
+<p>在hander里面调用的方法如下：</p>
+<p><div class="linenums"></div></p>
+<p><div class="L0"></div></p>
+<p><pre class="lang:default decode:true  ">/**</pre></p>
+<ul>
+<li>Render an exception into an HTTP response.<br>*</li>
+<li>@param \Illuminate\Http\Request $request<ul>
+<li>@param  \Exception  $e</li>
+</ul>
+</li>
+<li>@return \Illuminate\Http\Response<br>*/<br>public function render($request, Exception $e)<br>{<br>if ($this-&gt;isHttpException($e))<br>{<br>return $this-&gt;renderHttpException($e);<br>}<br>else<br>{<br>return (new SymfonyDisplayer(config(‘app.debug’)))-&gt;createResponse($e);<br>}<br>}<br>&nbsp;</li>
+</ul>
+<p><br><br>所有的HTTP异常（如404和503）,它们都是使用renderHttpException方法，它在\Illuminate\Foundation\Exceptions\Handler下可以找见。</p>
+<p><div class="linenums"></div></p>
+<p><div class="L0"></div></p>
+<p><pre class="lang:default decode:true ">/**</pre></p>
+<ul>
+<li>Render the given HttpException.<br>*</li>
+<li>@param \Symfony\Component\HttpKernel\Exception\HttpException $e<ul>
+<li>@return \Symfony\Component\HttpFoundation\Response<br>*/<br>protected function renderHttpException(HttpException $e)<br>{<br>if (view()-&gt;exists(‘errors.’.$e-&gt;getStatusCode()))<br> {<pre><code>return response()-&amp;gt;view(&apos;errors.&apos;.$e-&amp;gt;getStatusCode(), [], $e-&amp;gt;getStatusCode());
+</code></pre> }<br> else<br> {<pre><code>return (new SymfonyDisplayer(config(&apos;app.debug&apos;)))-&amp;gt;createResponse($e);
+</code></pre>}<br>}<br>&nbsp;</li>
+</ul>
+</li>
+</ul>
+<p><br><br>我们看到view方法下定义了视图存在的位置，<code>{&#39;errors&#39;.$e-&amp;gt;getStatusCode()}</code>,OK，现在就明白了，Http错误页面就是对应在views/errors/[code].blade.php文件，比如：404.blade.php,503.blade.php等等。若是对应的code错误页面不存在，会使用默认的Whoop抛出异常。</p>
+<h2 id="u6211_u5728laravel4_u4E2D_u662F_u5982_u4F55_u5904_u7406_u5F02_u5E38_u7684"><a href="#u6211_u5728laravel4_u4E2D_u662F_u5982_u4F55_u5904_u7406_u5F02_u5E38_u7684" class="headerlink" title="我在laravel4中是如何处理异常的"></a>我在laravel4中是如何处理异常的</h2><p>异常捕捉是在路由文件中进行的：</p>
+<p><div class="linenums"></div></p>
+<p><div class="L0"></div></p>
+<p><pre class="lang:default decode:true">// error<br>App::error(function (Exception $exception) {<br>        Log::error($exception);<br>        $error = $exception-&gt;getMessage();</pre></p>
+<p>if(Request::ajax()){<br>return Response::json([‘status’=&gt;false, ‘error’=&gt;$error]);<br>}else{<br>return Redirect::back()-&gt;withErrors(compact(‘error’));<br>}<br>});<br><br><br>自定义404错误页面也是在理由文件中进行的：</p>
+<p><div class="linenums"></div></p>
+<p><div class="L0"></div></p>
+<p><pre class="lang:default decode:true">// 404 page not found<br>App::missing(function () {<br>return Response::view(‘errors.404’, array(), 404);<br>});</pre><br><br><br>相比laravel4，laravel5将http处理独立出来无疑不体现系统架构的合理化。<br>在之前我们看到Laravel5的异常处理app/exceptions/Hander.php：</p>
+<p><div class="linenums"></div></p>
+<p><div class="L0"></div></p>
+<p><pre class="lang:default decode:true">class Handler extends ExceptionHandler {</pre></p>
+<p>/**</p>
+<ul>
+<li>A list of the exception types that should not be reported.<br>*</li>
+<li>@var array<br>*/<br>protected $dontReport = [<br>‘Symfony\Component\HttpKernel\Exception\HttpException’<br>];</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Report or log an exception.<br>*</li>
+<li>This is a great spot to send exceptions to Sentry, Bugsnag, etc.<br>*</li>
+<li>@param \Exception $e<pre><code> * @return void
+ */
+public function report(Exception $e)
+</code></pre>{<br>return parent::report($e);<br>}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Render an exception into an HTTP response.<br>*</li>
+<li>@param \Illuminate\Http\Request $request<pre><code>* @param  \Exception  $e
+</code></pre></li>
+<li>@return \Illuminate\Http\Response<br>*/<br>public function render($request, Exception $e)<br>{<br>return parent::render($request, $e);<br>}</li>
+</ul>
+<p>}<br><br><br>第一个方法提交日志，你可以把它提交到你们专门的日志服务器，比如我们公司有自己的鹰眼日志系统；第二个方法执行异常，你也可以在这里使用<code>$e-&amp;gt;getStatusCode()</code>获取到http错误代码，根据不同的错误代码进行操作，也可以在此自定义错误模板。</p>
+<p>其实，如果大家仔细发现。我在laravel4中对异常处理也是三个方面：日志记录、异常代码处理和自定义错误页面。Laravel5将一系列操作独立出来，那么在异常处理这一块肯定是非常好的提升了。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/blog/2015/04/21/laravel5-events-handlers/" class="prev">上一篇</a><a href="/blog/2015/04/15/laravel5-directory-structure-and-namespace/" class="next">下一篇</a></div></footer><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

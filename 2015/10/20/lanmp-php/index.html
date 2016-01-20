@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Lanmp服务器环境搭建 – PHP · xbhub</title><meta name="description" content="
+下载Php5.5.19  http://php.net/releases/
+
+正式安装php
+//辅助环境安装
+&lt;a href=&quot;#yum_install_gcc_bison_bison-devel_zlib-devel_libmcrypt-devel_mcrypt_mhash-devel_openssl-devel_libxml2-devel_libcurl-devel_bzip2-devel_readline-devel_libedit-devel__u2013y__23_tar_zxvf_php-5-5-19-tar-gz&quot; class=&quot;head"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="http://weibo.com/jorycn" target="_blank" class="nav-list-link">微博</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li><li class="nav-list-item"><a href="https://github.com/jorycn" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Lanmp服务器环境搭建 – PHP</h1><div class="post-meta"><div class="post-time">2015年10月20日</div></div><div class="post-content"><ol>
+<li><p>下载Php5.5.19  <a href="http://php.net/releases/" target="_blank" rel="external">http://php.net/releases/</a></p>
+</li>
+<li><p>正式安装php</p>
+<p>//辅助环境安装</p>
+<h1 id="yum_install_gcc_bison_bison-devel_zlib-devel_libmcrypt-devel_mcrypt_mhash-devel_openssl-devel_libxml2-devel_libcurl-devel_bzip2-devel_readline-devel_libedit-devel__u2013y__23_tar_zxvf_php-5-5-19-tar-gz"><a href="#yum_install_gcc_bison_bison-devel_zlib-devel_libmcrypt-devel_mcrypt_mhash-devel_openssl-devel_libxml2-devel_libcurl-devel_bzip2-devel_readline-devel_libedit-devel__u2013y__23_tar_zxvf_php-5-5-19-tar-gz" class="headerlink" title="yum install gcc bison bison-devel zlib-devel libmcrypt-devel mcrypt mhash-devel openssl-devel libxml2-devel libcurl-devel bzip2-devel readline-devel libedit-devel –y    # tar zxvf php-5.5.19.tar.gz"></a>yum install gcc bison bison-devel zlib-devel libmcrypt-devel mcrypt mhash-devel openssl-devel libxml2-devel libcurl-devel bzip2-devel readline-devel libedit-devel –y    # tar zxvf php-5.5.19.tar.gz</h1><h1 id="cd_php-5-5-19"><a href="#cd_php-5-5-19" class="headerlink" title="cd php-5.5.19"></a>cd php-5.5.19</h1><p>`</p>
+<pre>`# ./configure --prefix=/usr/local/php --enable-inline-optimization --disable-debug --disable-rpath --enable-shared --enable-opcache=no --enable-fpm --with-apxs2=/usr/local/apache/bin/apxs --with-mysql=/usr/local/mysql --with-fpm-user=www --with-fpm-group=www --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-gettext --enable-mbstring --with-iconv --with-mcrypt --with-mhash --with-openssl --enable-bcmath --enable-soap --with-libxml-dir --enable-pcntl --enable-shmop --enable-sysvmsg --enable-sysvsem --enable-sysvshm --enable-sockets --with-curl --with-zlib --enable-zip --with-bz2 --with-readline --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir
+`</pre>
+<pre>`# make &amp;&amp; make install
+`</pre>
+
+<h4 id="u670D_u52A1_u914D_u7F6E"><a href="#u670D_u52A1_u914D_u7F6E" class="headerlink" title="服务配置"></a>服务配置</h4><pre>`# cp php.ini-development /usr/local/php/lib/php.ini
+# cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+# cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+
+# chmod +x /etc/init.d/php-fpm
+# chkconfig --add php-fpm &amp;&amp; chkconfig php-fpm on
+`</pre>
+
+<h5 id="u6DFB_u52A0_u73AF_u5883_u53D8_u91CF"><a href="#u6DFB_u52A0_u73AF_u5883_u53D8_u91CF" class="headerlink" title="添加环境变量"></a>添加环境变量</h5><pre>`# vi /etc/profile;
+在 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE INPUTRC 之上添加所需环境变量
+  PATH=$PATH:/usr/local/php/bin
+//如果修改了/etc/profile，那么编辑结束后执行source profile
+# source profile
+`</pre>
+
+<pre>`//检查环境是否正常
+php -v
+//查看已开启模块,注意gd模块是否正常
+php -m
+`</pre>
+
+<h4 id="u670D_u52A1_u811A_u672C"><a href="#u670D_u52A1_u811A_u672C" class="headerlink" title="服务脚本"></a>服务脚本</h4><p><pre>`service php-fpm start|stop|restart</pre></p>
+</li>
+</ol>
+</div></article></div></section><footer><div class="paginator"><a href="/blog/2015/10/20/lanmp-mysql/" class="prev">上一篇</a><a href="/blog/2015/10/16/lanmp-nginx/" class="next">下一篇</a></div></footer><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

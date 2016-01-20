@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Lanmp服务器环境搭建 – Memcached · xbhub</title><meta name="description" content="Memcached安装
+
+
+源码安装libevent（下载地址：http://monkey.org/~provos/libevent/）
+
+源码安装memcached（下载地址：http://memcached.org/）
+
+
+安装libevent：
+tar xzf libevent-2.0.21-stable.tar.gz &amp;amp;amp;&amp;amp;amp;
+cd libevent-2.0.21-stable&amp;amp;amp;&amp;amp;amp;
+./configure -prefix=/usr/local/libevent&amp;amp;amp;&amp;amp;amp;
+make &amp;amp;amp;&amp;amp;amp; make install
+
+`&amp;lt;/pre&amp;gt;
+
+检查是否安装胜利
+
+&amp;lt;pre&amp;gt;`ls -al /usr/local/li"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="http://weibo.com/jorycn" target="_blank" class="nav-list-link">微博</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li><li class="nav-list-item"><a href="https://github.com/jorycn" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Lanmp服务器环境搭建 – Memcached</h1><div class="post-meta"><div class="post-time">2015年10月21日</div></div><div class="post-content"><p>Memcached安装</p>
+<hr>
+<ol>
+<li><p>源码安装libevent（下载地址：<a href="http://monkey.org/~provos/libevent/）" target="_blank" rel="external">http://monkey.org/~provos/libevent/）</a></p>
+</li>
+<li><p>源码安装memcached（下载地址：<a href="http://memcached.org/）" target="_blank" rel="external">http://memcached.org/）</a></p>
+</li>
+</ol>
+<p>安装libevent：</p>
+<pre><code>tar xzf libevent-2.0.21-stable.tar.gz &amp;amp;&amp;amp;
+cd libevent-2.0.21-stable&amp;amp;&amp;amp;
+./configure -prefix=/usr/local/libevent&amp;amp;&amp;amp;
+make &amp;amp;&amp;amp; make install
+
+`&lt;/pre&gt;
+
+检查是否安装胜利
+
+&lt;pre&gt;`ls -al /usr/local/libevent/lib | grep libevent
+`&lt;/pre&gt;
+
+安装memcached，同时须要安装中指定libevent的安装位置：
+
+&lt;pre&gt;`tar xzf memcached-1.4.15.tar.gz&amp;amp;&amp;amp;
+cd memcached-1.4.15&amp;amp;&amp;amp;
+./configure --with-libevent=/usr/local/libevent&amp;amp;&amp;amp;
+make &amp;amp;&amp;amp;make install
+`&lt;/pre&gt;
+
+测试是否胜利安装memcached：
+
+&lt;pre&gt;`ls -al /usr/local/bin/mem*
+-rwxr-xr-x. 1 root root 310847 5月 11 11:11 /usr/local/bin/memcached
+`&lt;/pre&gt;
+
+编写 memcached 启动脚本
+
+vi /etc/init.d/memcached
+
+&lt;pre&gt;`#! /bin/sh
+#
+# chkconfig: - 55 45
+# description: The memcached daemon is a network memorycache service.
+# processname: memcached
+# config: /etc/sysconfig/memcached
+
+# Source function library.
+
+. /etc/rc.d/init.d/functions
+PORT=11211
+USER=root
+MAXCONN=1024
+CACHESIZE=64
+OPTIONS=&quot;&quot;
+
+if [ -f /etc/sysconfig/memcached ];then
+    . /etc/sysconfig/memcached
+fi
+# Check that networking is up.
+. /etc/sysconfig/network
+
+if [ &quot;$NETWORKING&quot; = &quot;no&quot; ]
+then
+    exit 0
+fi
+start () {
+echo &quot;Starting memcached ...&quot;
+
+# insure that /var/run/memcached has proper permissions
+chown $USER /usr/local/bin/memcached
+/usr/local/bin/memcached -d -p $PORT -u $USER -m $CACHESIZE -c $MAXCONN-P /var/run/memcached.pid $OPTIONS
+RETVAL=$?
+echo
+[ $RETVAL -eq 0 ] &amp;amp;&amp;amp; touch /var/lock/subsys/memcached
+}
+
+stop () {
+echo &quot;Stopping memcached ...&quot;
+killproc memcached
+RETVAL=$?
+echo
+if [ $RETVAL -eq 0 ] ; then
+rm -f /var/lock/subsys/memcached
+rm -f /var/run/memcached.pid
+fi
+}
+
+restart () {
+stop
+start
+}
+
+# See how we were called.
+case &quot;$1&quot; in
+start)
+start
+;;
+stop)
+stop
+;;
+status)
+status memcached
+;;
+restart|reload)
+restart
+;;
+condrestart)
+[ -f /var/lock/subsys/memcached ] &amp;amp;&amp;amp; restart || :
+;;
+*)
+echo $&quot;Usage: $0{start|stop|status|restart|reload|condrestart}&quot;
+exit 1
+esac
+
+exit $RETVAL
+`&lt;/pre&gt;
+
+保存退出
+加入自启动
+
+&lt;pre&gt;`cd /etc/init.d &amp;amp;&amp;amp;
+chmod +x memcached &amp;amp;&amp;amp;
+chkconfig --add memcached &amp;amp;&amp;amp;
+chkconfig memcached on
+`&lt;/pre&gt;
+
+赋给可执行权限
+
+&lt;pre&gt;`chmod -R 755 /etc/init.d/memcached
+`&lt;/pre&gt;
+
+启动服务
+
+&lt;pre&gt;`service memcached start
+`&lt;/pre&gt;
+
+查看端口是否启动胜利
+
+&lt;pre&gt;`netstat -anp | grep 11211
+`&lt;/pre&gt;
+
+## 安装php模块支持
+
+* * *
+
+1、 在http://pecl.php.net/package/memcache 选择相应想要下载的memcache版本。
+2、 安装PHP的memcache扩展
+
+&lt;pre&gt;`wget http://pecl.php.net/get/memcache-2.2.6.tgz
+tar zxf memcache-2.2.6.tgz
+cd memcache-2.2.6
+/usr/local/php/bin/phpize
+./configure --with-php-config=/usr/local/php/bin/php-config --with-zlib-dir --enable-memcache
+make &amp;amp;&amp;amp; make install
+`&lt;/pre&gt;
+
+3、 调整php.ini
+
+&lt;pre&gt;`vi /usr/local/php/lib/php.ini
+[memcache]
+extension = memcache.so
+</code></pre><p>4、重启php-fpm</p>
+</div></article></div></section><footer><div class="paginator"><a class="prev"> </a><a href="/blog/2015/10/20/lanmp-mysql/" class="next">下一篇</a></div></footer><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

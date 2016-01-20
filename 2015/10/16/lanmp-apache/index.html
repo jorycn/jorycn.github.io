@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Lanmp服务器环境搭建 - Apache · xbhub</title><meta name="description" content="Apache安装
+下载apachehttp://httpd.apache.org/
+
+正式安装apache
+tar zxvf httpd-2.2.29.tar.gzcd httpd-2.2.29&lt;h1 id=&quot;yum_install_make_gcc_automake_autoconf_l"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="http://weibo.com/jorycn" target="_blank" class="nav-list-link">微博</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li><li class="nav-list-item"><a href="https://github.com/jorycn" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Lanmp服务器环境搭建 - Apache</h1><div class="post-meta"><div class="post-time">2015年10月16日</div></div><div class="post-content"><h4 id="Apache_u5B89_u88C5"><a href="#Apache_u5B89_u88C5" class="headerlink" title="Apache安装"></a>Apache安装</h4><ol>
+<li><p>下载apache<br><a href="http://httpd.apache.org/" target="_blank" rel="external">http://httpd.apache.org/</a></p>
+</li>
+<li><p>正式安装apache</p>
+<h1 id="tar_zxvf_httpd-2-2-29-tar-gz"><a href="#tar_zxvf_httpd-2-2-29-tar-gz" class="headerlink" title="tar zxvf httpd-2.2.29.tar.gz"></a>tar zxvf httpd-2.2.29.tar.gz</h1><h1 id="cd_httpd-2-2-29"><a href="#cd_httpd-2-2-29" class="headerlink" title="cd httpd-2.2.29"></a>cd httpd-2.2.29</h1><h1 id="yum_install_make_gcc_automake_autoconf_libtool_-y"><a href="#yum_install_make_gcc_automake_autoconf_libtool_-y" class="headerlink" title="yum install make gcc automake autoconf libtool -y"></a>yum install make gcc automake autoconf libtool -y</h1><h1 id="/configure__u2013prefix_3D/usr/local/apache__u2013enable-shared_3Dmax__u2013enable-module_3Dmost__u2013enable-so"><a href="#/configure__u2013prefix_3D/usr/local/apache__u2013enable-shared_3Dmax__u2013enable-module_3Dmost__u2013enable-so" class="headerlink" title="./configure –prefix=/usr/local/apache –enable-shared=max –enable-module=most –enable-so"></a>./configure –prefix=/usr/local/apache –enable-shared=max –enable-module=most –enable-so</h1><p>`</p>
+</li>
+<li><p>make &amp;&amp; make install</p>
+<h4 id="u670D_u52A1_u914D_u7F6E"><a href="#u670D_u52A1_u914D_u7F6E" class="headerlink" title="服务配置"></a>服务配置</h4><pre>`# /usr/local/apache/bin/apachectl stop
+# /usr/local/apache/bin/apachectl start
+
+//修改端口到8080
+vi /usr/local/apache/conf/httpd.conf
+修改
+Listen 8080
+`</pre>
+
+<h4 id="u542F_u52A8_u811A_u672C/_u91CD_u542F_u811A_u672C"><a href="#u542F_u52A8_u811A_u672C/_u91CD_u542F_u811A_u672C" class="headerlink" title="启动脚本/重启脚本"></a>启动脚本/重启脚本</h4></li>
+<li><p>编写脚本</p>
+<pre>`vi /etc/rc.d/init.d/httpd
+添加以下内容
+#!/bin/bash
+# Startup script for the Apache2.0.X Web Server
+# Fixed by Comsenz - Nanu (nanu@discuz.com)
+# chkconfig: - 85 15
+# Source function library.
+. /etc/rc.d/init.d/functions
+if [ -f /etc/sysconfig/httpd ]; then
+. /etc/sysconfig/httpd
+fi
+INITLOG_ARGS=""
+apachectl=/usr/local/apache/bin/apachectl
+httpd=${HTTPD-/usr/local/apache/bin/httpd}
+prog=httpd
+RETVAL=0
+start() {
+echo -n $"Starting $prog: "
+daemon $httpd $OPTIONS
+RETVAL=$?
+echo
+[ $RETVAL = 0 ] &amp;&amp; touch /var/lock/subsys/httpd
+return $RETVAL
+}
+stop() {
+echo -n $"Stopping $prog: "
+killproc $httpd
+RETVAL=$?
+echo
+[ $RETVAL = 0 ] &amp;&amp; rm -f /var/lock/subsys/httpd /var/run/httpd.pid
+}
+reload() {
+echo -n $"Reloading $prog: "
+killproc $httpd -HUP
+RETVAL=$?
+echo
+}
+case "$1" in
+start)
+start
+;;
+stop)
+stop
+;;
+status)
+status $httpd
+RETVAL=$?
+;;
+restart)
+stop
+start
+;;
+condrestart)
+if [ -f /var/run/httpd.pid ] ; then
+stop
+start
+fi
+;;
+reload)
+reload
+;;
+graceful|help|configtest|fullstatus)
+$apachectl $@
+RETVAL=$?
+;;
+*)
+echo $"Usage: $prog
+{start|stop|restart|condrestart|reload|status|fullstatus|graceful|help|configtest}"
+exit 1
+esac
+exit $RETVAL
+`</pre></li>
+<li>赋予权限并添加开机启动<pre>`chmod 755 /etc/rc.d/init.d/httpd
+chkconfig --add httpd
+chkconfig --level 3 httpd on
+`</pre></li>
+<li><p>脚本完成</p>
+<pre>`service httpd start | restart
+service httpd stop
+`</pre>
+
+<hr>
+<h4 id="u53EF_u80FD_u51FA_u73B0_u62A5_u9519_u89E3_u51B3"><a href="#u53EF_u80FD_u51FA_u73B0_u62A5_u9519_u89E3_u51B3" class="headerlink" title="可能出现报错解决"></a>可能出现报错解决</h4></li>
+<li><p>Host配置出错：</p>
+<pre>`httpd: apr_sockaddr_info_get() failed for VM_198_236_centos
+httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName
+##### 解决：
+vi /usr/local/apache/conf/httpd.conf
+添加
+ServerName localhost:8080
+`</pre></li>
+<li>APR not found<br><pre>`yum remove apr-util-devel apr apr-util-mysql apr-docs apr-devel apr-util apr-util-docs<br>a:解决apr not found问题&gt;&gt;&gt;&gt;&gt;&gt;<br>wget <a href="http://archive.apache.org/dist/apr/apr-1.4.5.tar.gz" target="_blank" rel="external">http://archive.apache.org/dist/apr/apr-1.4.5.tar.gz</a>    tar -zxf apr-1.4.5.tar.gz    cd  apr-1.4.5    ./configure –prefix=/usr/local/apr    make &amp;&amp; make install    b:解决APR-util not found问题&gt;&gt;&gt;&gt;<br>wget <a href="http://archive.apache.org/dist/apr/apr-util-1.3.12.tar.gz" target="_blank" rel="external">http://archive.apache.org/dist/apr/apr-util-1.3.12.tar.gz</a><br>tar -zxf apr-util-1.3.12.tar.gz    cd apr-util-1.3.12    ./configure –prefix=/usr/local/apr-util -with-apr=/usr/local/apr/bin/apr-1-config    make &amp;&amp; make install<br>c:解决pcre问题&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>wget <a href="http://jaist.dl.sourceforge.net/project/pcre/pcre/8.10/pcre-8.10.zip" target="_blank" rel="external">http://jaist.dl.sourceforge.net/project/pcre/pcre/8.10/pcre-8.10.zip</a><br>unzip -o pcre-8.10.zip    cd pcre-8.10    ./configure –prefix=/usr/local/pcre<br>make &amp;&amp; make install<br>Apache编译时加上以下：<br>–with-apr=/usr/local/apr \<br>–with-apr-util=/usr/local/apr-util/ \<br>–with-pcre=/usr/local/pcre</pre></li>
+</ol>
+</div></article></div></section><footer><div class="paginator"><a href="/blog/2015/10/16/lanmp-nginx/" class="prev">上一篇</a><a href="/blog/2015/09/05/wechat-share/" class="next">下一篇</a></div></footer><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

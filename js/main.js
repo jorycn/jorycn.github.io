@@ -1,4 +1,9 @@
+require.config({
+    baseUrl : "/blog"
+})
+    
 require([], function (){
+    
 
     var isMobileInit = false;
     var loadMobile = function(){

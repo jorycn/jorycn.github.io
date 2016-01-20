@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[小白巷]]></title>
   
-  <link href="/atom.xml" rel="self"/>
-  <link href="http://jorycn.github.io/"/>
+  <link href="/blog/atom.xml" rel="self"/>
+  <link href="http://jorycn.github.io/blog/"/>
   <updated>2016-01-20T02:37:29.241Z</updated>
-  <id>http://jorycn.github.io/</id>
+  <id>http://jorycn.github.io/blog/</id>
   
   <author>
     <name><![CDATA[Jory Zhou]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[世界上最恐怖的十个鬼故事]]></title>
-    <link href="http://jorycn.github.io/2015/04/21/the-worst-10-ghost-stories/"/>
-    <id>http://jorycn.github.io/2015/04/21/the-worst-10-ghost-stories/</id>
+    <link href="http://jorycn.github.io/blog/2015/04/21/the-worst-10-ghost-stories/"/>
+    <id>http://jorycn.github.io/blog/2015/04/21/the-worst-10-ghost-stories/</id>
     <published>2015-04-21T23:42:13.000Z</published>
     <updated>2016-01-20T02:37:29.241Z</updated>
     <content type="html"><![CDATA[<h2 id="u4F60_u76F8_u4FE1_u8C01_3F"><a href="#u4F60_u76F8_u4FE1_u8C01_3F" class="headerlink" title="你相信谁?"></a>你相信谁?</h2><p>有一年登山社去登山,其中有一对感情很好的情侣在一起.<br>当他们到山下准备攻峰时,天气突然转坏了,但是他们还是要执意的上山去.<br>于是就留下那个女的看营地,可过了三天都没有看见他们回来.<br>那个女的有点担心了,心想可能是因为天气的原因吧.<br>等呀等呀,到了第七天,终于大家回来了,可是唯独她的男友没有回来.<br>大家告诉她,在攻峰的第一天,她的男友就不幸死了!<br>他们赶在头七回来,心想他可能会回来找她的.<br>于是大家围成一个圈,把她放在中间,到了快十二点时,突然她的男友出现了还混身是血的一把抓住她就往外跑.他女朋友吓得哇哇大叫,极力挣扎,这时她男友告诉她….<br>在攻峰的第一天就发生了山难!<br>全部的人都死了只有他还活着……..<br>你相信谁?</p>
@@ -36,20 +36,20 @@
     <![CDATA[<h2 id="u4F60_u76F8_u4FE1_u8C01_3F"><a href="#u4F60_u76F8_u4FE1_u8C01_3F" class="headerlink" title="你相信谁?"></a>你相信谁?</h2><p>有一年登山社去登山,其中有一对感]]>
     </summary>
     
-      <category term="鬼故事" scheme="http://jorycn.github.io/tags/%E9%AC%BC%E6%95%85%E4%BA%8B/"/>
+      <category term="鬼故事" scheme="http://jorycn.github.io/blog/tags/%E9%AC%BC%E6%95%85%E4%BA%8B/"/>
     
-      <category term="F-科幻 &amp;amp; 惊悚" scheme="http://jorycn.github.io/categories/F-%E7%A7%91%E5%B9%BB-amp-%E6%83%8A%E6%82%9A/"/>
+      <category term="F-科幻 &amp;amp; 惊悚" scheme="http://jorycn.github.io/blog/categories/F-%E7%A7%91%E5%B9%BB-amp-%E6%83%8A%E6%82%9A/"/>
     
-      <category term="K-涨知识" scheme="http://jorycn.github.io/categories/F-%E7%A7%91%E5%B9%BB-amp-%E6%83%8A%E6%82%9A/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/"/>
+      <category term="K-涨知识" scheme="http://jorycn.github.io/blog/categories/F-%E7%A7%91%E5%B9%BB-amp-%E6%83%8A%E6%82%9A/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/"/>
     
-      <category term="N-小说" scheme="http://jorycn.github.io/categories/F-%E7%A7%91%E5%B9%BB-amp-%E6%83%8A%E6%82%9A/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/N-%E5%B0%8F%E8%AF%B4/"/>
+      <category term="N-小说" scheme="http://jorycn.github.io/blog/categories/F-%E7%A7%91%E5%B9%BB-amp-%E6%83%8A%E6%82%9A/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/N-%E5%B0%8F%E8%AF%B4/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[佛家四大经典爱情故事]]></title>
-    <link href="http://jorycn.github.io/2015/03/23/four-love-stories/"/>
-    <id>http://jorycn.github.io/2015/03/23/four-love-stories/</id>
+    <link href="http://jorycn.github.io/blog/2015/03/23/four-love-stories/"/>
+    <id>http://jorycn.github.io/blog/2015/03/23/four-love-stories/</id>
     <published>2015-03-23T07:02:04.000Z</published>
     <updated>2016-01-20T02:37:29.237Z</updated>
     <content type="html"><![CDATA[<p>第一篇文章，把自己很久之前保存下的几个小故事献出来，每一个都很经典唯美：</p>
@@ -63,13 +63,13 @@
 <p><strong>前世是谁埋了你 </strong><br>从前有个书生, 和未婚妻约好在某年某月某日结婚。到那一天, 未婚妻却嫁给了别人。 书生受此打击, 一病不起。家人用尽各种办法都无]]>
     </summary>
     
-      <category term="四大爱情故事" scheme="http://jorycn.github.io/tags/%E5%9B%9B%E5%A4%A7%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B/"/>
+      <category term="四大爱情故事" scheme="http://jorycn.github.io/blog/tags/%E5%9B%9B%E5%A4%A7%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B/"/>
     
-      <category term="爱情故事" scheme="http://jorycn.github.io/tags/%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B/"/>
+      <category term="爱情故事" scheme="http://jorycn.github.io/blog/tags/%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B/"/>
     
-      <category term="K-涨知识" scheme="http://jorycn.github.io/categories/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/"/>
+      <category term="K-涨知识" scheme="http://jorycn.github.io/blog/categories/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/"/>
     
-      <category term="N-小说" scheme="http://jorycn.github.io/categories/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/N-%E5%B0%8F%E8%AF%B4/"/>
+      <category term="N-小说" scheme="http://jorycn.github.io/blog/categories/K-%E6%B6%A8%E7%9F%A5%E8%AF%86/N-%E5%B0%8F%E8%AF%B4/"/>
     
   </entry>
   

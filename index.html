@@ -3,8 +3,31 @@
 <head>
 	<meta charset="utf-8">
 	<title></title>
+	<script src="http://xbhub.qiniudn.com/js/libs/lean-cloud/av-min.js"></script>
 </head>
 <body>
-	<a href="/blog">博客</a>
+	<script>
+		// 应用 ID，用来识别应用
+		var APP_ID = 'v4INFhy9WALHtErgbkWPlN44-gzGzoHsz';
+
+		// 应用 Key，用来校验权限（Web 端可以配置安全域名来保护数据安全）
+		var APP_KEY = 'Hug5qsexMVpPfM1JNU9yuTmX';
+
+		// 初始化
+		AV.init({
+		appId: APP_ID,
+		appKey: APP_KEY
+		});
+
+		var TestObject = AV.Object.extend('TestObject');
+		var testObject = new TestObject();
+		testObject.save({
+		testabc: 'i am from gitPage'
+		}).then(function() {
+		alert('LeanCloud works!');
+		}).catch(function(err) {
+		alert('error:' + err);
+		});
+	</script>
 </body>
 </html>

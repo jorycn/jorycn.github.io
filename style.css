@@ -26,15 +26,15 @@ html{font-size: 20PX;}
 @media only screen and (min-width: 414px){html{font-size: 22.08PX !important;}}
 @media only screen and (min-width: 480px){html{font-size: 25.6PX !important;}}
 body{line-height: 1.6; font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif; color: #222; background-color: #fff;}
-.resume__desc dl{background-color: #f4f5f9;}
+.resume__desc dl{background-color: #f4f5f9;padding: 20px;}
 .page{max-width: 740px; margin:0 auto; padding: 20px 15px;}
 .box{margin:15px 0;}
 .resume{position: relative;}
 dl{padding: 0 10px;}
 .resume__job{font-weight: 800; font-size: 15px; text-decoration: underline;}
-dl dd:before{content: '*'; position: absolute; left:0;}
+dl dd:before{content: '*'; position: absolute; left:5px;}
 h1{font-size: 30px;}
-h2{margin-bottom: 10px; color: grey; border-bottom: 1px dashed #ccc;}
+h2{margin-bottom: 10px; color: grey; border-bottom: 2px dashed #eee;}
 .profile{font-weight: 800; position: relative;}
 .profile p{width: 50%; text-align: left;}
 .profile p:nth-child(even){position: absolute; right: 0;}

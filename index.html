@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>个人简历</title>
+  <title>Jory's Resume</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body class="page">
@@ -12,10 +12,10 @@
     <h1>周世杰</h1>
     <div class="profile">
       <p>Tel: 15249196593</p>
+      <p>生日：1989.12</p>             
       <p>微信：jorycn</p>
-      <p>邮箱：jorycn@163.com</p>
-      <p>生日：1989.12</p>      
-      <p>毕业院校：太原理工大学</p>
+      <p>毕业院校：太原理工大学</p>            
+      <p>邮箱：jorycn@163.com</p>     
     </div>
   </header>
   <div class="resume">
@@ -35,12 +35,12 @@
     <div class="box resume__skill">
       <h2 class="resume__skill__title">技能评价</h2>
       <dl>
-        <dd>PHP<div class="width:98%"></div></dd>
-        <dd>VueJs<div class="width:92%"></div></dd>
-        <dd>Javascript<div class="width:90%"></div></dd>
-        <dd>DIV+CSS<div class="width:88%"></div></dd>
-        <dd>NodeJs<div class="width:82%"></div></dd>
-        <dd>Linux<div class="width:75%"></div></dd>
+        <dd>PHP<div class="m-progress" data-id="98"></div></dd>
+        <dd>VueJs<div class="m-progress" data-id="92"></div></dd>
+        <dd>Javascript<div class="m-progress" data-id="90"></div></dd>
+        <dd>DIV+CSS<div class="m-progress" data-id="88"></div></dd>
+        <dd>NodeJs<div class="m-progress" data-id="82"></div></dd>
+        <dd>Linux<div class="m-progress" data-id="74"></div></dd>
       </dl>
     </div>
     <div class="box resume__exper">
@@ -59,5 +59,19 @@
       </dl>
     </div>
   </div>
+  <script src="http://mat1.gtimg.com/www/asset/lib/jquery/jquery/jquery-1.11.1.min.js"></script>
+  <script>
+    $(function(){
+      var block = '■';
+      $(".m-progress").each(function(i, n){
+        var _n = $(this).attr('data-id')-50;
+        var _html = '';
+        for(var i=0;i<50;i++){
+          _html += i>_n?'<span>'+block+'</span>':'<span class="on">'+block+'</span>';
+        }
+        $(this).html(_html);
+      })
+    })
+  </script>
 </body>
 </html>

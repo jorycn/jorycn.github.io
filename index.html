@@ -5,7 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Jory's Resume</title>
-  <link rel="stylesheet" href="./style.css">
+  <style>
+  /* reset */
+  html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+  header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+  table{border-collapse:collapse;border-spacing:0;}
+  caption,th{text-align:left;font-weight:normal;}
+  html,body,fieldset,img,iframe,abbr{border:0;}
+  i,cite,em,var,address,dfn{font-style:normal;}
+  [hidefocus],summary{outline:0;}
+  li{list-style:none;}
+  h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+  sup,sub{font-size:83%;}
+  pre,code,kbd,samp{font-family:inherit;}
+  q:before,q:after{content:none;}
+  textarea{overflow:auto;resize:none;}
+  label,summary{cursor:default;}
+  a,button{cursor:pointer;}
+  h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+  del,ins,u,s,a,a:hover{text-decoration:none;}
+  body,textarea,input,button,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
+  body{background-color:#fff;}
+  a,a:hover{color:#333;}
+  html{font-size: 20PX;}
+  @media only screen and (min-width: 320px){html{font-size: 19PX !important;}}
+  @media only screen and (min-width: 375px){html{font-size: 20PX !important;}}
+  @media only screen and (min-width: 400px){html{font-size: 21.33333333PX !important;}}
+  @media only screen and (min-width: 414px){html{font-size: 22.08PX !important;}}
+  @media only screen and (min-width: 480px){html{font-size: 25.6PX !important;}}
+  body{line-height: 1.6; font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif; color: #222; background-color: #fff;}
+  .resume__desc dl{background-color: #f4f5f9;padding: 20px;}
+  .page{max-width: 740px; margin:0 auto; padding: 20px 15px;}
+  .box{margin:15px 0;}
+  .resume{position: relative;}
+  dl{padding: 0 10px;}
+  .resume__job{font-weight: 800; font-size: 15px; text-decoration: underline;}
+  dl dd:before{content: '*'; position: absolute; left:5px;}
+  h1{font-size: 30px;}
+  h2{margin-bottom: 10px; color: grey; border-bottom: 2px dashed #eee;}
+  .profile{font-weight: 800; position: relative;}
+  .profile p{width: 50%; text-align: left;}
+  .profile p:nth-child(even){position: absolute; right: 0;}
+  .resume__exper dl dd{margin-bottom: 20px;}
+  .resume__exper dl dd p:nth-child(1){color: grey; font-style: italic;}
+  .resume__exper dl dd p:nth-child(2){font-size: 15px; font-weight: 800;}
+  .resume__exper dl dd p:nth-child(3){font-size: 13px;}
+  .resume__skill dl dd{padding-bottom: 5px; margin:6px 0; width: 100%;}
+  .m-progress{height: 15px; line-height: 15px; border-radius: 5px;}
+  .m-progress span{width: 0.3rem; height: 0.3rem; display: inline-block; color: #e4e4e4;}
+  .m-progress span.on{color: green;}
+  @media print{.m-progress span{width: 10px; height: 10px; color: #f7f3f3;}}
+  @media only screen and (min-width: 480px){.m-progress span{width: 10px; height: 10px;}}
+  </style>
 </head>
 <body class="page">
   <header>
@@ -14,7 +65,7 @@
       <p>Tel: 15249196593</p>
       <p>生日：1989.12</p>             
       <p>微信：jorycn</p>
-      <p>毕业院校：太原理工大学</p>            
+      <p>毕业院校：太原理工大学-软件工程</p>            
       <p>邮箱：jorycn@163.com</p>     
     </div>
   </header>
@@ -23,14 +74,15 @@
       <!-- PHP开发主管&nbsp;&nbsp;西安&nbsp;&nbsp;18-25K -->
     </div>
     <div class="box resume__desc">
-      <h2 class="resume__desc__title">个人说明</h2>
+      <h2 class="resume__desc__title">技能简介</h2>
       <dl>
-        <dd>精通基于PHP语言开发各类系统，精通框架：Laravel、Lumen、 Yii、 ThinkPHP</dd>
-        <dd>熟悉多种开源产品：Magento、Discuz、phpcms、Destoon、we7</dd>
-        <dd>熟悉NodeJs，精通VueJs，熟悉ReactJs,AngularJs</dd>
-        <dd>精通基于微信平台开发（公众号、企业号、小程序）</dd>
-        <dd>熟悉基于钉钉企业开发（pc、app、小程序）</dd>
-        <dd>拥有完善的前后端解决方案，具有一定的团队管理意识</dd>
+        <dd>精通基于PHP语言开发各类产品和系统，产品化思维明确，有完善的系统架构方案。</dd>
+        <dd>精通前端开发，熟悉各类h5及小程序开发（微信，头条，钉钉等平台）</dd>
+        <dd>精通营销游戏开发，擅长Egret（Typescript）</dd>
+        <dd>熟悉linux服务器，擅长高性能namp环境部署与维护</dd>
+
+        <dd style="margin-top:15px;">精通框架：Laravel、Lumina、thinkphp</dd>
+        <dd>熟悉开源产品：Magento、we7、Discuz、Destoon</dd>
       </dl>
     </div>
     <div class="box resume__exper">
@@ -39,12 +91,16 @@
       	<dd>
           <p>2018.4 - 至今</p>
           <p>今日头条陕西分公司</p>
-          <p>OA系统开发（crm,广告系统,工单系统）;移动营销系统(整合微信，头条平台集成报名，投票，抽奖等营销型h5开发综合平台)</p>
+          <ol style="margin-top: 5px;">
+            <li>- 联合钉钉OA系统开发（合同管理，Crm，工单立项，会议预定（签到），知识库），PC+钉钉小程序</li>
+            <li>- 移动营销系统(整合微信，头条平台集成报名，投票，抽奖等营销型h5开发综合平台)</li>
+            <li>- 其他产品开发(支付引擎，用户社交模块，视频点播模块)</li>
+          </ol>
         </dd>
         <dd>
           <p>2015.4 - 2018.4</p>
           <p>腾讯大秦网</p>
-          <p>大秦技术团队第一人，自来大秦开始，重新搭建技术团队研发互联网产品。在职期间完成包括：教育（大秦课堂），家居（秦装修），公益（秦帮主），系统（大秦投票系统，微狮微信公众平台系统，游戏运营管理系统）。参与大型项目包含：秦始皇兵马俑公众号，西安交管局微信公众号，西安环保局，安康高新公众号。小程序（单车猎手）</p>
+          <p>经理腾讯地方站业务转型，重新搭建技术团队研发互联网产品。在职期间完成包括：教育（大秦课堂），家居（秦装修），公益（秦帮主），系统（大秦投票系统，微狮微信公众平台系统，游戏运营管理系统）。参与大型项目包含：秦始皇兵马俑公众号，西安交管局微信公众号，西安环保局，安康高新公众号。小程序（单车猎手）</p>
         </dd>
         <dd>
           <p>2011.9 - 2015.4</p>
@@ -53,7 +109,13 @@
         </dd>
       </dl>
     </div>
-    <div class="box resume__skill">
+    <div class="box resume__exper">
+      <h2 class="resumen__exper__title">兴趣爱好</h2>
+      <div>
+        计算机，旅游，教育事业
+      </div>
+    </div>
+    <!-- <div class="box resume__skill">
       <h2 class="resume__skill__title">技能评价</h2>
       <dl>
         <dd>PHP<div class="m-progress" data-id="98"></div></dd>
@@ -63,7 +125,7 @@
         <dd>NodeJs<div class="m-progress" data-id="82"></div></dd>
         <dd>Linux<div class="m-progress" data-id="74"></div></dd>
       </dl>
-    </div>
+    </div> -->
   </div>
   <script src="http://mat1.gtimg.com/www/asset/lib/jquery/jquery/jquery-1.11.1.min.js"></script>
   <script>
